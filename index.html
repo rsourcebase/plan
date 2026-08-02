@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plano de treino</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:#F6F7F5;color:#16191B;line-height:1.45;padding-bottom:60px;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  main{max-width:720px;margin:0 auto;padding:0 20px;}
+
+  /* week switch — sticky so it's always clear which week is active */
+  .switch-wrap{position:sticky;top:0;background:#F6F7F5;padding:16px 20px 12px;z-index:10;}
+  .switch{max-width:720px;margin:0 auto;display:flex;gap:8px;}
+  .switch button{
+    flex:1;padding:11px;border-radius:9px;border:1px solid #D8DBD6;background:#fff;
+    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;
+    cursor:pointer;color:#5C665F;
+  }
+  .switch button.active{background:#20443C;color:#fff;border-color:#20443C;}
+
+  .daynav{max-width:720px;margin:10px auto 0;display:flex;gap:6px;}
+  .daynav a{
+    flex:1;text-align:center;padding:9px 0;border-radius:8px;border:1px solid #E3E6E1;
+    background:#fff;text-decoration:none;color:#5C665F;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.03em;text-transform:uppercase;
+  }
+  .daynav a:active, .daynav a:hover{background:#EFF2EE;color:#20443C;}
+  .daynav a.active{background:#20443C;color:#fff;border-color:#20443C;}
+
+  [id]{scroll-margin-top:118px;}
+
+  .card{
+    background:#fff;border:1px solid #E3E6E1;border-radius:14px;
+    padding:20px 22px;margin-top:16px;
+  }
+  .card.off{background:transparent;border-style:dashed;text-align:center;color:#8A938C;padding:26px;}
+
+  .day-head{display:flex;align-items:center;gap:10px;margin-bottom:4px;}
+  .day-head h2{font-size:16px;font-weight:700;}
+  .badge{font-family:'IBM Plex Mono',monospace;font-size:10px;text-transform:uppercase;padding:3px 9px;border-radius:999px;letter-spacing:.04em;}
+  .badge.gym{background:#E4EEEB;color:#20443C;}
+  .badge.itb{background:#FBF1DF;color:#8A5A1E;}
+  .badge.other{background:#E4EAF2;color:#2E4B72;}
+  .alt-tag{font-size:11px;color:#A6ADA4;}
+
+  ul.ex{list-style:none;margin-top:12px;}
+  ul.ex li{padding:10px 0;border-top:1px solid #ECEEEB;font-size:14px;}
+  ul.ex li:first-child{border-top:none;}
+  .ex-row{display:flex;justify-content:space-between;gap:10px;align-items:baseline;}
+  .ex-name{font-weight:500;}
+  .ex-dose{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#5C665F;white-space:nowrap;}
+  .ex-cue{font-size:12.5px;color:#5C665F;margin-top:3px;}
+  .ex-vid{font-size:11.5px;color:#20443C;text-decoration:none;border-bottom:1px dotted #20443C;margin-top:4px;display:inline-block;}
+
+  .note{font-size:12.5px;color:#5C665F;margin-top:10px;}
+  .hidden{display:none;}
+
+  .vid-toggle{
+    background:#fff;border:1px solid #D8DBD6;color:#20443C;font-size:11.5px;
+    font-family:'IBM Plex Mono',monospace;letter-spacing:.02em;padding:5px 10px;
+    border-radius:6px;cursor:pointer;margin-top:6px;display:inline-block;
+  }
+  .vid-toggle:hover{background:#EFF2EE;}
+  .vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;}
+  .vid-grid iframe{width:100%;aspect-ratio:16/9;border:1px solid #E3E6E1;border-radius:8px;}
+  @media (max-width:480px){.vid-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="switch-wrap">
+  <div class="switch">
+    <button id="btn-w1" class="active" onclick="setWeek(1)">Semana 1</button>
+    <button id="btn-w2" onclick="setWeek(2)">Semana 2</button>
+  </div>
+  <div class="daynav">
+    <a id="nav-seg" href="javascript:void(0)" onclick="goToDay('seg')">Seg</a>
+    <a id="nav-ter" href="javascript:void(0)" onclick="goToDay('ter')">Ter</a>
+    <a id="nav-qua" href="javascript:void(0)" onclick="goToDay('qua')">Qua</a>
+    <a id="nav-qui" href="javascript:void(0)" onclick="goToDay('qui')">Qui</a>
+    <a id="nav-sex" href="javascript:void(0)" onclick="goToDay('sex')">Sex</a>
+    <a id="nav-sab" href="javascript:void(0)" onclick="goToDay('sab')">Sáb</a>
+    <a id="nav-dom" href="javascript:void(0)" onclick="goToDay('dom')">Dom</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- ROTINA FIXA -->
+  <div class="card">
+    <div class="day-head"><h2>Antes / depois — todo treino de força</h2></div>
+    <ul class="ex">
+      <li>
+        <div class="ex-row"><span class="ex-name">Foam roller — glúteo</span><span class="ex-dose mono">30–45s/lado</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=foam+roller+gl%C3%BAteo+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Foam roller — TFL (tensor da fáscia lata)</span><span class="ex-dose mono">30–45s/lado</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=foam+roller+tensor+da+fascia+lata+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Foam roller — quadríceps</span><span class="ex-dose mono">30–45s/lado</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=foam+roller+quadriceps+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Cat-Cow</span><span class="ex-dose mono">10 reps</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=cat+cow+mobilidade+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Mobilidade 90/90</span><span class="ex-dose mono">10 reps</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=mobilidade+90+90+quadril+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Mobilidade de tornozelo (dorsiflexão)</span><span class="ex-dose mono">10 reps/lado</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=mobilidade+de+tornozelo+dorsiflexao+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Ativação: caminhada lateral com miniband</span><span class="ex-dose mono">2×10 passos</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=caminhada+lateral+miniband+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Ativação: monster walk</span><span class="ex-dose mono">2×10 passos</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=monster+walk+miniband+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Ativação: ponte de glúteo</span><span class="ex-dose mono">15 reps</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=ponte+de+gluteo+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Alongamento — glúteo</span><span class="ex-dose mono">45s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+de+gluteo+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Alongamento — flexor de quadril</span><span class="ex-dose mono">45s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+flexor+de+quadril+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Alongamento — posterior de coxa</span><span class="ex-dose mono">45s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+posterior+de+coxa+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Alongamento — quadríceps</span><span class="ex-dose mono">45s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+de+quadriceps+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Alongamento — panturrilha</span><span class="ex-dose mono">45s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+de+panturrilha+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SEGUNDA -->
+  <div class="card" id="seg">
+    <div class="day-head"><h2>Segunda</h2><span class="badge gym">Treino A</span></div>
+    <ul class="ex">
+      <li>
+        <div class="ex-row"><span class="ex-name">Manguito rotador</span><span class="ex-dose mono">3×15</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=manguito+rotador+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Flexão</span><span class="ex-dose mono">3×AMRAP</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=flex%C3%A3o+de+bra%C3%A7o+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Supino reto</span><span class="ex-dose mono">4×8–10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=supino+reto+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Supino inclinado</span><span class="ex-dose mono">3×8–10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=supino+inclinado+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Voador com halteres</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=voador+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Elevação lateral</span><span class="ex-dose mono">3×12–15</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=eleva%C3%A7%C3%A3o+lateral+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Desenvolvimento com halteres</span><span class="ex-dose mono">3×10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=desenvolvimento+halteres+ombro+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Tríceps francês</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=triceps+frances+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Tríceps pulley</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=triceps+pulley+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Tríceps corda</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=triceps+corda+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- TERÇA -->
+  <div class="card" id="ter">
+    <div class="day-head"><h2>Terça</h2><span class="badge itb">SBIT</span><span class="alt-tag">alterna</span></div>
+
+    <div id="ter-w1">
+      <ul class="ex">
+        <li>
+          <div class="ex-row"><span class="ex-name">Equilíbrio em uma perna</span><span class="ex-dose mono">3×45s</span></div>
+              <div class="ex-cue">Joelho levemente flexionado, quadril estável. No fim, feche os olhos. Faça no início, com a perna descansada.
+          </div>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Caminhada lateral com miniband</span><span class="ex-dose mono">3×12 passos</span></div>
+              <div class="ex-cue">Banda acima dos joelhos, leve flexão, passos laterais sem deixar o joelho cair pra dentro.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=caminhada+lateral+miniband+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Monster walk com miniband</span><span class="ex-dose mono">3×10 passos</span></div>
+              <div class="ex-cue">Passos diagonais para frente, joelhos sempre alinhados com os pés.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=monster+walk+miniband+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Clamshell com faixa</span><span class="ex-dose mono">2×15</span></div>
+              <div class="ex-cue">Deitado de lado, joelhos dobrados, abra o joelho de cima sem girar o quadril.</div>
+          <button class="vid-toggle" data-open-label="▶ Ver vídeos (4)" onclick="toggleVideos('vg-clamshell', ['6l7PeYXm7BY','OKJcAhrJM5k','ItxLyrk5BlA','wXbXHy8tjpw'], this)">▶ Ver vídeos (4)</button>
+          <div id="vg-clamshell" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Abdução lateral de perna</span><span class="ex-dose mono">2×15</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=abdu%C3%A7%C3%A3o+lateral+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Isometria de glúteo médio (prancha lateral com apoio no chão)</span><span class="ex-dose mono">3×20–30s/lado</span></div>
+              <div class="ex-cue">De lado, apoiado no antebraço e no joelho de baixo, eleve o quadril e segure — sem deixar cair.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=prancha+lateral+isometria+gluteo+medio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Agachamento sumô</span><span class="ex-dose mono">3×10–12</span></div>
+          <div class="ex-cue">Pés afastados apontando pra fora, joelho segue a direção do pé na descida.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=agachamento+sum%C3%B4+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Abdominal</span><span class="ex-dose mono">3×15–20</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=abdominal+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Prancha</span><span class="ex-dose mono">3×40s</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=prancha+isom%C3%A9trica+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Dead bug</span><span class="ex-dose mono">3×10/lado</span></div>
+              <div class="ex-cue">Deitado, braços e pernas pra cima; estenda braço e perna opostos sem tirar a lombar do chão.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=dead+bug+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Bird dog</span><span class="ex-dose mono">3×10/lado</span></div>
+              <div class="ex-cue">Em 4 apoios, estenda braço e perna opostos mantendo o quadril e o tronco parados.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=bird+dog+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+      </ul>
+    </div>
+
+    <div id="ter-w2" class="hidden">
+      <ul class="ex">
+        <li>
+          <div class="ex-row"><span class="ex-name">Equilíbrio dinâmico</span><span class="ex-dose mono">3×10 toques</span></div>
+          <div class="ex-cue">Em 1 perna, toque o chão à frente e ao lado com a outra perna, sem perder o equilíbrio. Faça no início, com a perna descansada.</div>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Hip hike / pelvic drop</span><span class="ex-dose mono">3×12/lado</span></div>
+              <div class="ex-cue">Apoiado em 1 perna numa borda, deixe o quadril oposto cair e suba controlando com o glúteo.</div>
+              <a class="ex-vid" href="https://www.youtube.com/results?search_query=hip+hike+pelvic+drop+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Step-down lateral</span><span class="ex-dose mono">3×10/perna</span></div>
+              <div class="ex-cue">De pé numa plataforma baixa, desça tocando o calcanhar no chão sem o joelho cair pra dentro.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=step+down+lateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Terminal knee extension c/ miniband</span><span class="ex-dose mono">3×15</span></div>
+          <div class="ex-cue">Banda puxando o joelho pra dentro, faça mini agachamentos resistindo a ela.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=terminal+knee+extension+miniband" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Fire hydrant com faixa</span><span class="ex-dose mono">2×15</span></div>
+          <div class="ex-cue">Em 4 apoios, eleve o joelho lateralmente mantendo o quadril parado.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=fire+hydrant+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Prancha lateral com abdução</span><span class="ex-dose mono">2×10/lado</span></div>
+          <div class="ex-cue">Prancha lateral, eleve a perna de cima mantendo o quadril alinhado.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=prancha+lateral+com+abdu%C3%A7%C3%A3o+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Pallof press</span><span class="ex-dose mono">2×12/lado</span></div>
+          <div class="ex-cue">Elástico preso na lateral, empurre à frente resistindo à rotação do tronco.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=pallof+press+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- QUARTA -->
+  <div class="card" id="qua">
+    <div class="day-head"><h2>Quarta</h2><span class="badge gym">Treino B</span></div>
+    <ul class="ex">
+      <li>
+        <div class="ex-row"><span class="ex-name">Puxada supinada</span><span class="ex-dose mono">4×10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=puxada+supinada+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Barra</span><span class="ex-dose mono">3×AMRAP</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=barra+fixa+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Puxada neutra</span><span class="ex-dose mono">3×10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=puxada+neutra+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Remada baixa sentado (polia)</span><span class="ex-dose mono">3×10–12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=remada+baixa+sentado+polia+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Rosca direta com halteres</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=rosca+direta+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Rosca martelo</span><span class="ex-dose mono">3×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=rosca+martelo+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Rosca concentrada</span><span class="ex-dose mono">2×12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=rosca+concentrada+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Abdominal</span><span class="ex-dose mono">3×15–20</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=abdominal+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Prancha</span><span class="ex-dose mono">3×40s</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=prancha+isom%C3%A9trica+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- QUINTA -->
+  <div class="card" id="qui">
+    <div class="day-head"><h2>Quinta</h2><span class="badge itb">SBIT</span><span class="alt-tag">alterna</span></div>
+
+    <div id="qui-w1">
+      <ul class="ex">
+        <li>
+          <div class="ex-row"><span class="ex-name">Deadlift unilateral (leve)</span><span class="ex-dose mono">3×10/perna</span></div>
+              <div class="ex-cue">Apoiado em 1 perna, incline o tronco à frente enquanto a perna de trás sobe atrás. Faça no início, com a perna descansada.</div>
+              <a class="ex-vid" href="https://www.youtube.com/results?search_query=deadlift+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Ponte de glúteo com carga</span><span class="ex-dose mono">3×12</span></div>
+              <div class="ex-cue">Pés apoiados, eleve o quadril apertando o glúteo no topo.</div>
+              <a class="ex-vid" href="https://www.youtube.com/results?search_query=ponte+de+gluteo+com+carga+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Isometria de ponte de glúteo (1 perna)</span><span class="ex-dose mono">3×20–30s/perna</span></div>
+          <div class="ex-cue">Suba a ponte com as duas pernas, estenda uma e segure no topo sem deixar o quadril cair.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=isometria+ponte+de+gluteo+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+      </ul>
+      <p class="note">Stiff, cadeira flexora, step-up e panturrilha já estão na sexta — a quinta fica mais leve de propósito, pra não acumular carga de perna 3 dias seguidos.</p>
+    </div>
+
+    <div id="qui-w2" class="hidden">
+      <ul class="ex">
+        <li>
+          <div class="ex-row"><span class="ex-name">Deadlift unilateral (leve)</span><span class="ex-dose mono">3×10/perna</span></div>
+          <div class="ex-cue">Faça no início, com a perna descansada.</div>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Ponte unilateral, perna estendida</span><span class="ex-dose mono">3×10/perna</span></div>
+          <div class="ex-cue">Ponte de glúteo com uma perna esticada no ar; eleve só com a perna de apoio.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=ponte+unilateral+perna+estendida+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Panturrilha unilateral, olhos fechados</span><span class="ex-dose mono">3×12/perna</span></div>
+          <div class="ex-cue">Suba na ponta do pé numa perna só; feche os olhos nas últimas séries.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=panturrilha+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Alongamento flexor de quadril em pé</span><span class="ex-dose mono">45s/lado</span></div>
+          <div class="ex-cue">Afunde 1 perna à frente e empurre o quadril adiante, sentindo alongar a virilha da perna de trás.</div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+flexor+de+quadril+em+pe+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SEXTA -->
+  <div class="card" id="sex">
+    <div class="day-head"><h2>Sexta</h2><span class="badge gym">Treino C</span></div>
+    <ul class="ex">
+      <li>
+        <div class="ex-row"><span class="ex-name">Agachamento livre</span><span class="ex-dose mono">3×8–12</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=agachamento+livre+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Stiff</span><span class="ex-dose mono">3×8–10</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=stiff+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Cadeira flexora</span><span class="ex-dose mono">3×10–15</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=cadeira+flexora+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Step-up no banco</span><span class="ex-dose mono">3×10/perna</span></div>
+            <a class="ex-vid" href="https://www.youtube.com/results?search_query=step+up+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Afundo</span><span class="ex-dose mono">3×10/perna</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=afundo+com+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Cadeira extensora (leve, 2º plano)</span><span class="ex-dose mono">2×15</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=cadeira+extensora+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Panturrilha</span><span class="ex-dose mono">3×15–20</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=panturrilha+em+pe+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- SABADO -->
+  <div class="card" id="sab">
+    <div class="day-head"><h2>Sábado</h2><span class="badge other">Corrida</span></div>
+    <table class="prog" style="width:100%;border-collapse:collapse;font-size:13px;">
+      <tr><th style="text-align:left;padding:7px 4px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5C665F;text-transform:uppercase;">Semana</th><th style="text-align:left;padding:7px 4px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:#5C665F;text-transform:uppercase;">Distância</th></tr>
+      <tr><td style="padding:7px 4px;border-top:1px solid #ECEEEB;">1</td><td class="mono" style="padding:7px 4px;border-top:1px solid #ECEEEB;">2 km</td></tr>
+      <tr><td style="padding:7px 4px;border-top:1px solid #ECEEEB;">2</td><td class="mono" style="padding:7px 4px;border-top:1px solid #ECEEEB;">2,5–3 km</td></tr>
+      <tr><td style="padding:7px 4px;border-top:1px solid #ECEEEB;">3</td><td class="mono" style="padding:7px 4px;border-top:1px solid #ECEEEB;">3,5–4 km</td></tr>
+      <tr><td style="padding:7px 4px;border-top:1px solid #ECEEEB;">4</td><td class="mono" style="padding:7px 4px;border-top:1px solid #ECEEEB;">5 km · ~8 min/km</td></tr>
+    </table>
+    <p class="note">Avance de semana só se não doeu no dia seguinte (dor ≤3/10). Se doeu, repita a mesma distância.</p>
+  </div>
+
+  <!-- DOMINGO -->
+  <div class="card" id="dom">
+    <div class="day-head"><h2>Domingo</h2><span class="badge other" id="dom-badge">Ciclismo</span><span class="alt-tag">alterna</span></div>
+
+    <div id="dom-w1">
+    </div>
+
+    <div id="dom-w2" class="hidden">
+      <ul class="ex">
+        <li>
+          <div class="ex-row"><span class="ex-name">Mobilidade torácica</span><span class="ex-dose mono">antes</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=mobilidade+tor%C3%A1cica+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Band pull-apart</span><span class="ex-dose mono">antes</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=band+pull+apart+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+        <li><div class="ex-row"><span class="ex-name">Natação leve, foco técnica</span><span class="ex-dose mono">30–40 min</span></div></li>
+        <li>
+          <div class="ex-row"><span class="ex-name">Alongamento ombro/peitoral</span><span class="ex-dose mono">depois</span></div>
+          <a class="ex-vid" href="https://www.youtube.com/results?search_query=alongamento+de+ombro+e+peitoral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TESTE FUNCIONAL -->
+  <div class="card">
+    <div class="day-head"><h2>Teste funcional</h2><span class="alt-tag">a cada 2 semanas</span></div>
+    <ul class="ex">
+      <li>
+        <div class="ex-row"><span class="ex-name">Single-leg squat parcial</span><span class="ex-dose mono">10/perna</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=single+leg+squat+parcial+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+      <li>
+        <div class="ex-row"><span class="ex-name">Step-down contado</span><span class="ex-dose mono">10/perna</span></div>
+        <a class="ex-vid" href="https://www.youtube.com/results?search_query=step+down+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener">vídeo →</a>
+      </li>
+    </ul>
+    <p class="note">Bom controle de joelho (sem valgo) e dor ≤3/10 nos dois = pode avançar a corrida de sábado.</p>
+  </div>
+
+</main>
+
+<script>
+let selectedDay = null;
+function toggleVideos(id, ids, btn){
+  const box = document.getElementById(id);
+  if(box.dataset.loaded !== '1'){
+    box.innerHTML = ids.map(v => `<iframe src="https://www.youtube.com/embed/${v}" loading="lazy" title="vídeo do exercício" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`).join('');
+    box.dataset.loaded = '1';
+  }
+  box.classList.toggle('hidden');
+  if(btn){ btn.textContent = box.classList.contains('hidden') ? btn.dataset.openLabel : 'Fechar vídeos'; }
+}
+function goToDay(id){
+  const el = document.getElementById(id);
+  if(el){ el.scrollIntoView({behavior:'smooth', block:'start'}); }
+  document.querySelectorAll('.daynav a').forEach(a => a.classList.remove('active'));
+  const navEl = document.getElementById('nav-'+id);
+  if(navEl){ navEl.classList.add('active'); }
+  selectedDay = id;
+}
+function setWeek(w){
+  const isW1 = w===1;
+  document.getElementById('btn-w1').classList.toggle('active', isW1);
+  document.getElementById('btn-w2').classList.toggle('active', !isW1);
+  document.getElementById('ter-w1').classList.toggle('hidden', !isW1);
+  document.getElementById('ter-w2').classList.toggle('hidden', isW1);
+  document.getElementById('qui-w1').classList.toggle('hidden', !isW1);
+  document.getElementById('qui-w2').classList.toggle('hidden', isW1);
+  document.getElementById('dom-w1').classList.toggle('hidden', !isW1);
+  document.getElementById('dom-w2').classList.toggle('hidden', isW1);
+  document.getElementById('dom-badge').textContent = isW1 ? 'Ciclismo' : 'Natação';
+  if(selectedDay){
+    document.querySelectorAll('.daynav a').forEach(a => a.classList.remove('active'));
+    const navEl = document.getElementById('nav-'+selectedDay);
+    if(navEl){ navEl.classList.add('active'); }
+  }
+}
+</script>
+
+</body>
+</html>
