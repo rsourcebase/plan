@@ -83,15 +83,38 @@
   }
   .timer-btn:hover{background:#EFF2EE;}
   .timer-btn.play{background:#20443C;color:#fff;border-color:#20443C;}
+  .theme-toggle{display:inline-flex;align-items:center;justify-content:center;padding:8px;}
+
+  /* ---- dark theme ---- */
+  body.dark{background:#14171A;color:#EDEFEC;}
+  body.dark .card{background:#1E2225;border-color:#2C3135;}
+  body.dark .card.off{color:#6B746E;}
+  body.dark .switch-wrap{background:#14171A;}
+  body.dark .switch button{background:#1E2225;border-color:#2C3135;color:#9AA39C;}
+  body.dark .switch button.active{background:#3A8272;color:#fff;border-color:#3A8272;}
+  body.dark .daynav a{background:#1E2225;border-color:#2C3135;color:#9AA39C;}
+  body.dark .daynav a.active{background:#3A8272;color:#fff;border-color:#3A8272;}
+  body.dark .badge.gym{background:#1F3A33;color:#5FBFA6;}
+  body.dark .badge.itb{background:#3A2E17;color:#E0AC5C;}
+  body.dark .badge.other{background:#1B2A40;color:#7FA3D6;}
+  body.dark .badge.rest{background:#22262A;color:#8A938C;}
+  body.dark ul.ex li{border-color:#2C3135;}
+  body.dark .ex-dose, body.dark .ex-cue, body.dark .note, body.dark .alt-tag{color:#9AA39C;}
+  body.dark .toggle-icon{background:#1E2225;border-color:#2C3135;color:#5FBFA6;}
+  body.dark .toggle-icon:hover{background:#262B2E;}
+  body.dark .vid-grid iframe{border-color:#2C3135;}
+  body.dark table.prog th{color:#9AA39C;}
+  body.dark table.prog td{border-color:#2C3135;}
+  body.dark .timer-bar{background:#1E2225;border-color:#2C3135;}
+  body.dark .timer-display{color:#EDEFEC;}
+  body.dark .timer-btn{background:#1E2225;border-color:#2C3135;color:#5FBFA6;}
+  body.dark .timer-btn.play{background:#3A8272;color:#fff;border-color:#3A8272;}
+  body, .card, .switch-wrap, .daynav a, .toggle-icon, .timer-bar, .timer-btn{transition:background .2s ease, color .2s ease, border-color .2s ease;}
 </style>
 </head>
-<body>
+<body class="dark">
 
 <div class="switch-wrap">
-  <div class="switch">
-    <button id="btn-w1" class="active" onclick="setWeek(1)">Semana 1</button>
-    <button id="btn-w2" onclick="setWeek(2)">Semana 2</button>
-  </div>
   <div class="daynav">
     <a id="nav-seg" href="javascript:void(0)" onclick="goToDay('seg')">Seg</a>
     <a id="nav-ter" href="javascript:void(0)" onclick="goToDay('ter')">Ter</a>
@@ -108,6 +131,7 @@
   <!-- ROTINA FIXA -->
   <div class="card">
     <div class="day-head"><h2>Antes / depois — todo treino de força</h2></div>
+    <h3 style="font-size:12.5px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em;color:#5C665F;margin-top:4px;">Antes — foam roller, mobilidade e ativação</h3>
     <ul class="ex">
       <li>
           <div class="ex-row">
@@ -181,6 +205,9 @@
   </div>
           <div id="vg-rotina-ponte" class="vid-grid hidden"></div>
         </li>
+    </ul>
+    <h3 style="font-size:12.5px;font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.04em;color:#5C665F;margin-top:18px;">Depois — alongamentos</h3>
+    <ul class="ex">
       <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
@@ -226,7 +253,7 @@
 
   <!-- SEGUNDA -->
   <div class="card" id="seg">
-    <div class="day-head"><h2>Segunda</h2><span class="badge gym">Treino A</span></div>
+    <div class="day-head"><h2>Segunda</h2><span class="badge gym">Peito, Ombro e Tríceps</span></div>
     <ul class="ex">
       <li>
           <div class="ex-row">
@@ -312,189 +339,106 @@
   </div>
           <div id="vg-seg-tricepscorda" class="vid-grid hidden"></div>
         </li>
+      <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Alongamento manguito rotador externo<a class="yt-icon" href="https://www.youtube.com/watch?v=b3dYmaRVSus" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-seg-manguitoalong', ['b3dYmaRVSus','aS6DuzGgzBQ','9MYWtJgthRc','HU6bdtdDess'], this)">+</button></span>
+    <span class="ex-dose mono">3×30s/lado</span>
+  </div>
+          <div class="ex-cue">Sleeper stretch: deitado de lado, braço a 90°, use a outra mão para pressionar o antebraço suavemente em direção ao chão.</div>
+          <div id="vg-seg-manguitoalong" class="vid-grid hidden"></div>
+        </li>
     </ul>
   </div>
 
-  <!-- TERÇA -->
+    <!-- TERÇA -->
   <div class="card" id="ter">
-    <div class="day-head"><h2>Terça</h2><span class="badge itb">SBIT</span><span class="alt-tag">alterna</span></div>
+    <div class="day-head"><h2>Terça</h2><span class="badge gym">Perna</span></div>
 
-    <div id="ter-w1">
       <ul class="ex">
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Equilíbrio em uma perna<a class="yt-icon" href="https://www.youtube.com/watch?v=ph_Otq4m98U" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-equilibrio', ['ph_Otq4m98U','uoiyDHyX_Ik','Ags-Ei-oa3Y','bz9zZct5lWg'], this)">+</button></span>
-    <span class="ex-dose mono">3×45s</span>
+    <span class="ex-name">Agachamento livre<a class="yt-icon" href="https://www.youtube.com/results?search_query=agachamento+livre+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-agachlivre', ['HPnSFx5CIzs','rM6SDUdl9fs','nrM8zB5-gtE','kOgcM3NCYA0'], this)">+</button></span>
+    <span class="ex-dose mono">3×8–12</span>
   </div>
-          <div class="ex-cue">Joelho levemente flexionado, quadril estável. No fim, feche os olhos. Faça no início, com a perna descansada.</div>
-          <div id="vg-equilibrio" class="vid-grid hidden"></div>
+          <div id="vg-sex-agachlivre" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Caminhada lateral com miniband<a class="yt-icon" href="https://www.youtube.com/watch?v=e2SJvb2Ujzc" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-caminhada', ['e2SJvb2Ujzc','i52s2F2H_no','YoTGcAobBxg','MmAVKKK-eWI'], this)">+</button></span>
-    <span class="ex-dose mono">3×12 passos</span>
+    <span class="ex-name">Stiff<a class="yt-icon" href="https://www.youtube.com/results?search_query=stiff+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-stiff', ['BHfY5-jGNDA','HnBHZ8IS2eo','dVa5kFQ3wwY','d6B1gWaEtmA'], this)">+</button></span>
+    <span class="ex-dose mono">3×8–10</span>
   </div>
-          <div class="ex-cue">Banda acima dos joelhos, leve flexão, passos laterais sem deixar o joelho cair pra dentro.</div>
-          <div id="vg-caminhada" class="vid-grid hidden"></div>
+          <div id="vg-sex-stiff" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Monster walk com miniband<a class="yt-icon" href="https://www.youtube.com/watch?v=-tLh69sZc6Y" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-monster', ['-tLh69sZc6Y','YHi1Nq_zCus','dgZIAfQdFG0','snbNxUIUQPc'], this)">+</button></span>
-    <span class="ex-dose mono">3×10 passos</span>
-  </div>
-          <div class="ex-cue">Passos diagonais para frente, joelhos sempre alinhados com os pés.</div>
-          <div id="vg-monster" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Clamshell com faixa<a class="yt-icon" href="https://www.youtube.com/watch?v=6l7PeYXm7BY" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-clamshell', ['6l7PeYXm7BY','OKJcAhrJM5k','ItxLyrk5BlA','wXbXHy8tjpw'], this)">+</button></span>
-    <span class="ex-dose mono">2×15</span>
-  </div>
-          <div class="ex-cue">Deitado de lado, joelhos dobrados, abra o joelho de cima sem girar o quadril.</div>
-          <div id="vg-clamshell" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Abdução lateral de perna<a class="yt-icon" href="https://www.youtube.com/results?search_query=abdu%C3%A7%C3%A3o+lateral+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-abducao', ['NZLF9xI26Y0','QWxcveCuTrc','z7oEwyLNrS0','jYnZvayVU5Q'], this)">+</button></span>
-    <span class="ex-dose mono">2×15</span>
-  </div>
-        
-
-  <div id="vg-ter-abducao" class="vid-grid hidden"></div>
-</li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Isometria de glúteo médio (prancha lateral com apoio no chão)<a class="yt-icon" href="https://www.youtube.com/watch?v=xS8VQhvdxSU" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-isometria', ['xS8VQhvdxSU','A-kHqQFxdc0','wX0lzNFbP7k','pT95TaGWid4'], this)">+</button></span>
-    <span class="ex-dose mono">3×20–30s/lado</span>
-  </div>
-          <div class="ex-cue">De lado, apoiado no antebraço e no joelho de baixo, eleve o quadril e segure — sem deixar cair.</div>
-          <div id="vg-isometria" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Agachamento sumô<a class="yt-icon" href="https://www.youtube.com/results?search_query=agachamento+sum%C3%B4+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-sumo', ['u_TTcv8FvOk','5g2u-zldOkM','gsSNayxK3YI','Gv2RxMoXkL4'], this)">+</button></span>
-    <span class="ex-dose mono">3×10–12</span>
-  </div>
-          <div class="ex-cue">Pés afastados apontando pra fora, joelho segue a direção do pé na descida.</div>
-          <div id="vg-ter-sumo" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Abdominal<a class="yt-icon" href="https://www.youtube.com/results?search_query=abdominal+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-shared-abdominal', ['Vh-HZqPR0ew','LBqu0PK4Bqc','h_gJbEXOIXE','ofuUL0cdgVA'], this)">+</button></span>
-    <span class="ex-dose mono">3×15–20</span>
-  </div>
-          <div id="vg-shared-abdominal" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Prancha<a class="yt-icon" href="https://www.youtube.com/results?search_query=prancha+isom%C3%A9trica+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-shared-prancha', ['3qTz7853Yiw','OnVIGDpnMow','s4tR3_paR2c','u2XrXohWtVo'], this)">+</button></span>
-    <span class="ex-dose mono">3×40s</span>
-  </div>
-          <div id="vg-shared-prancha" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Dead bug<a class="yt-icon" href="https://www.youtube.com/watch?v=0loS0bRNqfs" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-deadbug', ['0loS0bRNqfs','uQfzuKBMJeE','4XLEnwUr1d8','g_BYB0R-4Ws'], this)">+</button></span>
-    <span class="ex-dose mono">3×10/lado</span>
-  </div>
-          <div class="ex-cue">Deitado, braços e pernas pra cima; estenda braço e perna opostos sem tirar a lombar do chão.</div>
-          <div id="vg-deadbug" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Bird dog<a class="yt-icon" href="https://www.youtube.com/watch?v=k2azbhhuKuM" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-birddog', ['k2azbhhuKuM','GcIxfCvnLW8','wPHpOYMV41U'], this)">+</button></span>
-    <span class="ex-dose mono">3×10/lado</span>
-  </div>
-          <div class="ex-cue">Em 4 apoios, estenda braço e perna opostos mantendo o quadril e o tronco parados.</div>
-          <div id="vg-birddog" class="vid-grid hidden"></div>
-        </li>
-      </ul>
-    </div>
-
-    <div id="ter-w2" class="hidden">
-      <ul class="ex">
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Equilíbrio dinâmico<a class="yt-icon" href="https://www.youtube.com/watch?v=DbiFeZOaPGo" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-equilibriodin', ['DbiFeZOaPGo','eYFONBm-MgY','LpYsyP2GbSA','QxfPpgpf1RA'], this)">+</button></span>
-    <span class="ex-dose mono">3×10 toques</span>
-  </div>
-          <div class="ex-cue">Em 1 perna, toque o chão à frente e ao lado com a outra perna, sem perder o equilíbrio. Faça no início, com a perna descansada.</div>
-          <div id="vg-ter-equilibriodin" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Hip hike / pelvic drop<a class="yt-icon" href="https://www.youtube.com/watch?v=2j0fHZwixA8" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-hiphike', ['2j0fHZwixA8','yDvitFkHyAo','k50t6Hek8jo'], this)">+</button></span>
-    <span class="ex-dose mono">3×12/lado</span>
-  </div>
-          <div class="ex-cue">Apoiado em 1 perna numa borda, deixe o quadril oposto cair e suba controlando com o glúteo.</div>
-          <div id="vg-hiphike" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Step-down lateral<a class="yt-icon" href="https://www.youtube.com/watch?v=vyeNJJZJqIo" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-stepdown', ['vyeNJJZJqIo','F-aadrgL5S0'], this)">+</button></span>
+    <span class="ex-name">Afundo<a class="yt-icon" href="https://www.youtube.com/results?search_query=afundo+com+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-afundo', ['mKRq_p3hQr4','6Zz_RG0EHFE','mPtTzNYAHi0','H13uGS4-oa8'], this)">+</button></span>
     <span class="ex-dose mono">3×10/perna</span>
   </div>
-          <div class="ex-cue">De pé numa plataforma baixa, desça tocando o calcanhar no chão sem o joelho cair pra dentro.</div>
-          <div id="vg-stepdown" class="vid-grid hidden"></div>
+          <div id="vg-sex-afundo" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Terminal knee extension c/ miniband<a class="yt-icon" href="https://www.youtube.com/results?search_query=terminal+knee+extension+miniband" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-tke', ['nz_oKnXx3X0','LiIfnOzsq7g','7xG3MeoLjC0','Q52n_EkQDfQ'], this)">+</button></span>
-    <span class="ex-dose mono">3×15</span>
+    <span class="ex-name">Flexora em pé<a class="yt-icon" href="https://www.youtube.com/watch?v=DkZvVE9sNtc" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-flexorape', ['DkZvVE9sNtc','2DCrKY8ov_k','T--10UN1jKs','asgd2_1k7Yw'], this)">+</button></span>
+    <span class="ex-dose mono">3×10–15/perna</span>
   </div>
-          <div class="ex-cue">Banda puxando o joelho pra dentro, faça mini agachamentos resistindo a ela.</div>
-          <div id="vg-ter-tke" class="vid-grid hidden"></div>
+          <div class="ex-cue">Alinhe o joelho ao eixo da máquina, rolo no tornozelo (não no meio do pé); flexione controlando a descida.</div>
+          <div id="vg-ter-flexorape" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Fire hydrant com faixa<a class="yt-icon" href="https://www.youtube.com/results?search_query=fire+hydrant+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-firehydrant', ['mF8NtwHTOo8','La3xYT8MGks','MRJsG9it4tg','W2PNcNCfIF4'], this)">+</button></span>
+    <span class="ex-name">Cadeira extensora (leve)<a class="yt-icon" href="https://www.youtube.com/results?search_query=cadeira+extensora+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-cadextensora', ['exLCpU7mT3g','--p0Ff7R-Io','Svq2T3L9oKo','XRmUPHC65h0'], this)">+</button></span>
     <span class="ex-dose mono">2×15</span>
   </div>
-          <div class="ex-cue">Em 4 apoios, eleve o joelho lateralmente mantendo o quadril parado.</div>
-          <div id="vg-ter-firehydrant" class="vid-grid hidden"></div>
+          <div id="vg-sex-cadextensora" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Prancha lateral com abdução<a class="yt-icon" href="https://www.youtube.com/results?search_query=prancha+lateral+com+abdu%C3%A7%C3%A3o+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-prancha-abd', ['-JwTGcRc0rY','732Efr3IOqg','oeXYrZVnYes','K1Og15odizI'], this)">+</button></span>
-    <span class="ex-dose mono">2×10/lado</span>
+    <span class="ex-name">Cadeira extensora unilateral<a class="yt-icon" href="https://www.youtube.com/watch?v=Io_slRjahQI" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-extensorauni', ['Io_slRjahQI','Os_byCyi6MI'], this)">+</button></span>
+    <span class="ex-dose mono">2×12–15/perna</span>
   </div>
-          <div class="ex-cue">Prancha lateral, eleve a perna de cima mantendo o quadril alinhado.</div>
-          <div id="vg-ter-prancha-abd" class="vid-grid hidden"></div>
+          <div class="ex-cue">Mesma execução da bilateral, uma perna de cada vez — bom pra corrigir assimetrias entre as pernas.</div>
+          <div id="vg-ter-extensorauni" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Pallof press<a class="yt-icon" href="https://www.youtube.com/results?search_query=pallof+press+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-pallof', ['91zJZhRx2u0','LuePuoHEt6s','GkWSGGdxliE','QVhBsy6P0xk'], this)">+</button></span>
-    <span class="ex-dose mono">2×12/lado</span>
+    <span class="ex-name">Panturrilha<a class="yt-icon" href="https://www.youtube.com/results?search_query=panturrilha+em+pe+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-pantempe', ['a1s-U4UQkIg','cklp_Xh5V8M','nm4W5nJB7ZI','IC9sJ-k_rGo'], this)">+</button></span>
+    <span class="ex-dose mono">3×15–20</span>
   </div>
-          <div class="ex-cue">Elástico preso na lateral, empurre à frente resistindo à rotação do tronco.</div>
-          <div id="vg-ter-pallof" class="vid-grid hidden"></div>
+          <div id="vg-sex-pantempe" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Alongamento do iliopsoas<a class="yt-icon" href="https://www.youtube.com/watch?v=DeVYJ5nkhJw" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-iliopsoas', ['DeVYJ5nkhJw','Tljyp4UI9HA','fdEHZSwgwOM','H7WtRrDzogs'], this)">+</button></span>
+    <span class="ex-dose mono">3×30–45s/lado</span>
+  </div>
+          <div class="ex-cue">Ajoelhado com 1 perna à frente (afundo), empurre o quadril adiante e para baixo, mantendo o tronco ereto — sente o alongamento na virilha/frente do quadril da perna de trás.</div>
+          <div id="vg-ter-iliopsoas" class="vid-grid hidden"></div>
         </li>
       </ul>
-    </div>
   </div>
 
-  <!-- QUARTA -->
+<!-- QUARTA -->
   <div class="card" id="qua">
-    <div class="day-head"><h2>Quarta</h2><span class="badge gym">Treino B</span></div>
+    <div class="day-head"><h2>Quarta</h2><span class="badge gym">Costas e Bíceps</span></div>
     <ul class="ex">
+      <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Mobilidade escapular<a class="yt-icon" href="https://www.youtube.com/watch?v=E7eWx9fwXqw" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-qua-mobescapular', ['E7eWx9fwXqw','Hol6lSE-Yng','gYgj2-qFeQ4','cyBoDPQ6GF4'], this)">+</button></span>
+    <span class="ex-dose mono">10–15 reps</span>
+  </div>
+          <div class="ex-cue">Movimento dinâmico de ombro/escápula pra preparar a articulação antes de puxar carga — não é alongamento estático.</div>
+          <div id="vg-qua-mobescapular" class="vid-grid hidden"></div>
+        </li>
       <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
@@ -578,45 +522,108 @@
     </ul>
   </div>
 
-  <!-- QUINTA -->
-  <div class="card" id="qui">
-    <div class="day-head"><h2>Quinta</h2><span class="badge itb">SBIT</span><span class="alt-tag">alterna</span></div>
+      <!-- QUINTA -->
+  <div class="card off" id="qui">
+    <div class="mono" style="font-size:12px;letter-spacing:.04em;text-transform:uppercase;">Quinta</div>
+    <div style="margin-top:4px;font-weight:600;">Day off</div>
+  </div>
 
-    <div id="qui-w1">
+  <!-- SEXTA -->
+  <div class="card" id="sex">
+    <div class="day-head"><h2>Sexta</h2><span class="badge itb">SBIT</span></div>
+
       <ul class="ex">
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Deadlift unilateral (leve)<a class="yt-icon" href="https://www.youtube.com/watch?v=NRxdE8M59VU" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-deadlift1', ['NRxdE8M59VU','dERWpijxguM','F5W4FmoZ8IE','8D5MPNouG6o'], this)">+</button></span>
+    <span class="ex-name">Equilíbrio em uma perna<a class="yt-icon" href="https://www.youtube.com/watch?v=ph_Otq4m98U" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-equilibrio', ['ph_Otq4m98U','uoiyDHyX_Ik','Ags-Ei-oa3Y','bz9zZct5lWg'], this)">+</button></span>
+    <span class="ex-dose mono">3×45s</span>
+  </div>
+          <div class="ex-cue">Joelho levemente flexionado, quadril estável. No fim, feche os olhos. Faça no início, com a perna descansada.</div>
+          <div id="vg-equilibrio" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Equilíbrio dinâmico<a class="yt-icon" href="https://www.youtube.com/watch?v=DbiFeZOaPGo" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-equilibriodin', ['DbiFeZOaPGo','eYFONBm-MgY','LpYsyP2GbSA','QxfPpgpf1RA'], this)">+</button></span>
+    <span class="ex-dose mono">3×10 toques</span>
+  </div>
+          <div class="ex-cue">Em 1 perna, toque o chão à frente e ao lado com a outra perna, sem perder o equilíbrio. Faça no início, com a perna descansada.</div>
+          <div id="vg-ter-equilibriodin" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Caminhada lateral com miniband<a class="yt-icon" href="https://www.youtube.com/watch?v=e2SJvb2Ujzc" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-caminhada', ['e2SJvb2Ujzc','i52s2F2H_no','YoTGcAobBxg','MmAVKKK-eWI'], this)">+</button></span>
+    <span class="ex-dose mono">3×12 passos</span>
+  </div>
+          <div class="ex-cue">Banda acima dos joelhos, leve flexão, passos laterais sem deixar o joelho cair pra dentro.</div>
+          <div id="vg-caminhada" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Monster walk com miniband<a class="yt-icon" href="https://www.youtube.com/watch?v=-tLh69sZc6Y" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-monster', ['-tLh69sZc6Y','YHi1Nq_zCus','dgZIAfQdFG0','snbNxUIUQPc'], this)">+</button></span>
+    <span class="ex-dose mono">3×10 passos</span>
+  </div>
+          <div class="ex-cue">Passos diagonais para frente, joelhos sempre alinhados com os pés.</div>
+          <div id="vg-monster" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Clamshell com faixa<a class="yt-icon" href="https://www.youtube.com/watch?v=6l7PeYXm7BY" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-clamshell', ['6l7PeYXm7BY','OKJcAhrJM5k','ItxLyrk5BlA','wXbXHy8tjpw'], this)">+</button></span>
+    <span class="ex-dose mono">2×15</span>
+  </div>
+          <div class="ex-cue">Deitado de lado, joelhos dobrados, abra o joelho de cima sem girar o quadril.</div>
+          <div id="vg-clamshell" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Fire hydrant com faixa<a class="yt-icon" href="https://www.youtube.com/results?search_query=fire+hydrant+exerc%C3%ADcio+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-firehydrant', ['mF8NtwHTOo8','La3xYT8MGks','MRJsG9it4tg','W2PNcNCfIF4'], this)">+</button></span>
+    <span class="ex-dose mono">2×15</span>
+  </div>
+          <div class="ex-cue">Em 4 apoios, eleve o joelho lateralmente mantendo o quadril parado.</div>
+          <div id="vg-ter-firehydrant" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Abdução lateral de perna<a class="yt-icon" href="https://www.youtube.com/results?search_query=abdu%C3%A7%C3%A3o+lateral+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-abducao', ['NZLF9xI26Y0','QWxcveCuTrc','z7oEwyLNrS0','jYnZvayVU5Q'], this)">+</button></span>
+    <span class="ex-dose mono">2×15</span>
+  </div>
+        
+
+  <div id="vg-ter-abducao" class="vid-grid hidden"></div>
+</li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Terminal knee extension c/ miniband<a class="yt-icon" href="https://www.youtube.com/results?search_query=terminal+knee+extension+miniband" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-tke', ['nz_oKnXx3X0','LiIfnOzsq7g','7xG3MeoLjC0','Q52n_EkQDfQ'], this)">+</button></span>
+    <span class="ex-dose mono">3×15</span>
+  </div>
+          <div class="ex-cue">Banda puxando o joelho pra dentro, faça mini agachamentos resistindo a ela.</div>
+          <div id="vg-ter-tke" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Hip hike / pelvic drop<a class="yt-icon" href="https://www.youtube.com/watch?v=2j0fHZwixA8" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-hiphike', ['2j0fHZwixA8','yDvitFkHyAo','k50t6Hek8jo'], this)">+</button></span>
+    <span class="ex-dose mono">3×12/lado</span>
+  </div>
+          <div class="ex-cue">Apoiado em 1 perna numa borda, deixe o quadril oposto cair e suba controlando com o glúteo.</div>
+          <div id="vg-hiphike" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Step-down lateral<a class="yt-icon" href="https://www.youtube.com/watch?v=vyeNJJZJqIo" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-stepdown', ['vyeNJJZJqIo','F-aadrgL5S0'], this)">+</button></span>
     <span class="ex-dose mono">3×10/perna</span>
   </div>
-          <div class="ex-cue">Apoiado em 1 perna, incline o tronco à frente enquanto a perna de trás sobe atrás. Faça no início, com a perna descansada.</div>
-          <div id="vg-deadlift1" class="vid-grid hidden"></div>
+          <div class="ex-cue">De pé numa plataforma baixa, desça tocando o calcanhar no chão sem o joelho cair pra dentro.</div>
+          <div id="vg-stepdown" class="vid-grid hidden"></div>
         </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Ponte de glúteo com carga<a class="yt-icon" href="https://www.youtube.com/watch?v=6jS6aH-78w4" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ponte', ['6jS6aH-78w4','em7hywLC7m8','X8kD4NISxO4','le8ZN02BQCE'], this)">+</button></span>
-    <span class="ex-dose mono">3×12</span>
-  </div>
-          <div class="ex-cue">Pés apoiados, eleve o quadril apertando o glúteo no topo.</div>
-          <div id="vg-ponte" class="vid-grid hidden"></div>
-        </li>
-        <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Isometria de ponte de glúteo (1 perna)<a class="yt-icon" href="https://www.youtube.com/results?search_query=isometria+ponte+de+gluteo+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-qui-isopontehip', ['UsPhjx0Sbrc','7_rT_OtZrLY','CEFr6CXLVJM','pH1SQDtFksA'], this)">+</button></span>
-    <span class="ex-dose mono">3×20–30s/perna</span>
-  </div>
-          <div class="ex-cue">Suba a ponte com as duas pernas, estenda uma e segure no topo sem deixar o quadril cair.</div>
-          <div id="vg-qui-isopontehip" class="vid-grid hidden"></div>
-        </li>
-      </ul>
-      <p class="note">Stiff, cadeira flexora, step-up e panturrilha já estão na sexta — a quinta fica mais leve de propósito, pra não acumular carga de perna 3 dias seguidos.</p>
-    </div>
-
-    <div id="qui-w2" class="hidden">
-      <ul class="ex">
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
@@ -638,11 +645,99 @@
         <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
+    <span class="ex-name">Agachamento sumô<a class="yt-icon" href="https://www.youtube.com/results?search_query=agachamento+sum%C3%B4+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-sumo', ['u_TTcv8FvOk','5g2u-zldOkM','gsSNayxK3YI','Gv2RxMoXkL4'], this)">+</button></span>
+    <span class="ex-dose mono">3×10–12</span>
+  </div>
+          <div class="ex-cue">Pés afastados apontando pra fora, joelho segue a direção do pé na descida.</div>
+          <div id="vg-ter-sumo" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Ponte de glúteo com carga<a class="yt-icon" href="https://www.youtube.com/watch?v=6jS6aH-78w4" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ponte', ['6jS6aH-78w4','em7hywLC7m8','X8kD4NISxO4','le8ZN02BQCE'], this)">+</button></span>
+    <span class="ex-dose mono">3×12</span>
+  </div>
+          <div class="ex-cue">Pés apoiados, eleve o quadril apertando o glúteo no topo.</div>
+          <div id="vg-ponte" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Isometria de ponte de glúteo (1 perna)<a class="yt-icon" href="https://www.youtube.com/results?search_query=isometria+ponte+de+gluteo+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-qui-isopontehip', ['UsPhjx0Sbrc','7_rT_OtZrLY','CEFr6CXLVJM','pH1SQDtFksA'], this)">+</button></span>
+    <span class="ex-dose mono">3×20–30s/perna</span>
+  </div>
+          <div class="ex-cue">Suba a ponte com as duas pernas, estenda uma e segure no topo sem deixar o quadril cair.</div>
+          <div id="vg-qui-isopontehip" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Isometria de glúteo médio (prancha lateral com apoio no chão)<a class="yt-icon" href="https://www.youtube.com/watch?v=xS8VQhvdxSU" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-isometria', ['xS8VQhvdxSU','A-kHqQFxdc0','wX0lzNFbP7k','pT95TaGWid4'], this)">+</button></span>
+    <span class="ex-dose mono">3×20–30s/lado</span>
+  </div>
+          <div class="ex-cue">De lado, apoiado no antebraço e no joelho de baixo, eleve o quadril e segure — sem deixar cair.</div>
+          <div id="vg-isometria" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Prancha lateral com abdução<a class="yt-icon" href="https://www.youtube.com/results?search_query=prancha+lateral+com+abdu%C3%A7%C3%A3o+de+perna+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-prancha-abd', ['-JwTGcRc0rY','732Efr3IOqg','oeXYrZVnYes','K1Og15odizI'], this)">+</button></span>
+    <span class="ex-dose mono">2×10/lado</span>
+  </div>
+          <div class="ex-cue">Prancha lateral, eleve a perna de cima mantendo o quadril alinhado.</div>
+          <div id="vg-ter-prancha-abd" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
     <span class="ex-name">Panturrilha unilateral, olhos fechados<a class="yt-icon" href="https://www.youtube.com/results?search_query=panturrilha+unilateral+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-qui-pantunilateral', ['Xb-nuSxLVSY','AIFRZSv5lEI','tyk_RjXoYZs','rtIhNNi0qgo'], this)">+</button></span>
     <span class="ex-dose mono">3×12/perna</span>
   </div>
           <div class="ex-cue">Suba na ponta do pé numa perna só; feche os olhos nas últimas séries.</div>
           <div id="vg-qui-pantunilateral" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Pallof press<a class="yt-icon" href="https://www.youtube.com/results?search_query=pallof+press+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-pallof', ['91zJZhRx2u0','LuePuoHEt6s','GkWSGGdxliE','QVhBsy6P0xk'], this)">+</button></span>
+    <span class="ex-dose mono">2×12/lado</span>
+  </div>
+          <div class="ex-cue">Elástico preso na lateral, empurre à frente resistindo à rotação do tronco.</div>
+          <div id="vg-ter-pallof" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Dead bug<a class="yt-icon" href="https://www.youtube.com/watch?v=0loS0bRNqfs" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-deadbug', ['0loS0bRNqfs','uQfzuKBMJeE','4XLEnwUr1d8','g_BYB0R-4Ws'], this)">+</button></span>
+    <span class="ex-dose mono">3×10/lado</span>
+  </div>
+          <div class="ex-cue">Deitado, braços e pernas pra cima; estenda braço e perna opostos sem tirar a lombar do chão.</div>
+          <div id="vg-deadbug" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Bird dog<a class="yt-icon" href="https://www.youtube.com/watch?v=k2azbhhuKuM" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-birddog', ['k2azbhhuKuM','GcIxfCvnLW8','wPHpOYMV41U'], this)">+</button></span>
+    <span class="ex-dose mono">3×10/lado</span>
+  </div>
+          <div class="ex-cue">Em 4 apoios, estenda braço e perna opostos mantendo o quadril e o tronco parados.</div>
+          <div id="vg-birddog" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Abdominal<a class="yt-icon" href="https://www.youtube.com/results?search_query=abdominal+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-shared-abdominal', ['Vh-HZqPR0ew','LBqu0PK4Bqc','h_gJbEXOIXE','ofuUL0cdgVA'], this)">+</button></span>
+    <span class="ex-dose mono">3×15–20</span>
+  </div>
+          <div id="vg-shared-abdominal" class="vid-grid hidden"></div>
+        </li>
+        <li>
+          <div class="ex-row">
+    <input type="checkbox" class="ex-check">
+    <span class="ex-name">Prancha<a class="yt-icon" href="https://www.youtube.com/results?search_query=prancha+isom%C3%A9trica+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-shared-prancha', ['3qTz7853Yiw','OnVIGDpnMow','s4tR3_paR2c','u2XrXohWtVo'], this)">+</button></span>
+    <span class="ex-dose mono">3×40s</span>
+  </div>
+          <div id="vg-shared-prancha" class="vid-grid hidden"></div>
         </li>
         <li>
           <div class="ex-row">
@@ -654,73 +749,9 @@
           <div id="vg-qui-alongflexorpe" class="vid-grid hidden"></div>
         </li>
       </ul>
-    </div>
   </div>
 
-  <!-- SEXTA -->
-  <div class="card" id="sex">
-    <div class="day-head"><h2>Sexta</h2><span class="badge gym">Treino C</span></div>
-    <ul class="ex">
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Agachamento livre<a class="yt-icon" href="https://www.youtube.com/results?search_query=agachamento+livre+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-agachlivre', ['HPnSFx5CIzs','rM6SDUdl9fs','nrM8zB5-gtE','kOgcM3NCYA0'], this)">+</button></span>
-    <span class="ex-dose mono">3×8–12</span>
-  </div>
-          <div id="vg-sex-agachlivre" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Stiff<a class="yt-icon" href="https://www.youtube.com/results?search_query=stiff+execu%C3%A7%C3%A3o+correta" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-stiff', ['BHfY5-jGNDA','HnBHZ8IS2eo','dVa5kFQ3wwY','d6B1gWaEtmA'], this)">+</button></span>
-    <span class="ex-dose mono">3×8–10</span>
-  </div>
-          <div id="vg-sex-stiff" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Cadeira flexora<a class="yt-icon" href="https://www.youtube.com/results?search_query=cadeira+flexora+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-cadflexora', ['zX5saGYPgzw','CHsaztLSSrc','e0_xHkXw350','vWFHYnVdBp4'], this)">+</button></span>
-    <span class="ex-dose mono">3×10–15</span>
-  </div>
-          <div id="vg-sex-cadflexora" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Step-up no banco<a class="yt-icon" href="https://www.youtube.com/watch?v=7mUtaq3HAIg" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-stepup', ['7mUtaq3HAIg','9LBlAgBjDKM','7NXhn2EEHOk'], this)">+</button></span>
-    <span class="ex-dose mono">3×10/perna</span>
-  </div>
-          <div id="vg-stepup" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Afundo<a class="yt-icon" href="https://www.youtube.com/results?search_query=afundo+com+halteres+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-afundo', ['mKRq_p3hQr4','6Zz_RG0EHFE','mPtTzNYAHi0','H13uGS4-oa8'], this)">+</button></span>
-    <span class="ex-dose mono">3×10/perna</span>
-  </div>
-          <div id="vg-sex-afundo" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Cadeira extensora (leve)<a class="yt-icon" href="https://www.youtube.com/results?search_query=cadeira+extensora+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-cadextensora', ['exLCpU7mT3g','--p0Ff7R-Io','Svq2T3L9oKo','XRmUPHC65h0'], this)">+</button></span>
-    <span class="ex-dose mono">2×15</span>
-  </div>
-          <div id="vg-sex-cadextensora" class="vid-grid hidden"></div>
-        </li>
-      <li>
-          <div class="ex-row">
-    <input type="checkbox" class="ex-check">
-    <span class="ex-name">Panturrilha<a class="yt-icon" href="https://www.youtube.com/results?search_query=panturrilha+em+pe+execu%C3%A7%C3%A3o" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-sex-pantempe', ['a1s-U4UQkIg','cklp_Xh5V8M','nm4W5nJB7ZI','IC9sJ-k_rGo'], this)">+</button></span>
-    <span class="ex-dose mono">3×15–20</span>
-  </div>
-          <div id="vg-sex-pantempe" class="vid-grid hidden"></div>
-        </li>
-    </ul>
-  </div>
-
-  <!-- SABADO -->
+<!-- SABADO -->
   <div class="card" id="sab">
     <div class="day-head"><h2>Sábado</h2><span class="badge other">Corrida</span></div>
     <table class="prog" style="width:100%;border-collapse:collapse;font-size:13px;">
@@ -735,12 +766,12 @@
 
   <!-- DOMINGO -->
   <div class="card" id="dom">
-    <div class="day-head"><h2>Domingo</h2><span class="badge other" id="dom-badge">Ciclismo</span></div>
+    <div class="day-head"><h2>Domingo</h2><span class="badge other">Ciclismo ou Natação</span></div>
 
     <div id="dom-w1">
     </div>
 
-    <div id="dom-w2" class="hidden">
+    <div id="dom-w2">
       <ul class="ex">
         <li>
           <div class="ex-row">
@@ -804,12 +835,18 @@
 </main>
 
 <div class="timer-bar">
+  <button class="timer-btn theme-toggle" onclick="toggleTheme()" aria-label="Alternar tema escuro">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.9-9.17c-.44-.06-.9-.1-1.36-.1-.08 0-.16 0-.24.01z"/></svg>
+  </button>
   <button class="timer-btn" onclick="resetTimer()">↺ Reset</button>
   <span class="timer-display" id="timer-display">00:00</span>
   <button class="timer-btn play" id="timer-playbtn" onclick="toggleTimer()">▶ Play</button>
 </div>
 
 <script>
+function toggleTheme(){
+  document.body.classList.toggle('dark');
+}
 let timerSeconds = 0;
 let timerInterval = null;
 function formatTime(s){
@@ -859,23 +896,6 @@ function goToDay(id){
   const navEl = document.getElementById('nav-'+id);
   if(navEl){ navEl.classList.add('active'); }
   selectedDay = id;
-}
-function setWeek(w){
-  const isW1 = w===1;
-  document.getElementById('btn-w1').classList.toggle('active', isW1);
-  document.getElementById('btn-w2').classList.toggle('active', !isW1);
-  document.getElementById('ter-w1').classList.toggle('hidden', !isW1);
-  document.getElementById('ter-w2').classList.toggle('hidden', isW1);
-  document.getElementById('qui-w1').classList.toggle('hidden', !isW1);
-  document.getElementById('qui-w2').classList.toggle('hidden', isW1);
-  document.getElementById('dom-w1').classList.toggle('hidden', !isW1);
-  document.getElementById('dom-w2').classList.toggle('hidden', isW1);
-  document.getElementById('dom-badge').textContent = isW1 ? 'Ciclismo' : 'Natação';
-  if(selectedDay){
-    document.querySelectorAll('.daynav a').forEach(a => a.classList.remove('active'));
-    const navEl = document.getElementById('nav-'+selectedDay);
-    if(navEl){ navEl.classList.add('active'); }
-  }
 }
 </script>
 
