@@ -123,7 +123,7 @@
 
 <div class="switch-wrap">
   <div class="daynav">
-    <a id="nav-seg" href="javascript:void(0)" onclick="goToDay('seg')">Seg</a>
+    <a id="nav-seg" class="active" href="javascript:void(0)" onclick="goToDay('seg')">Seg</a>
     <a id="nav-ter" href="javascript:void(0)" onclick="goToDay('ter')">Ter</a>
     <a id="nav-qua" href="javascript:void(0)" onclick="goToDay('qua')">Qua</a>
     <a id="nav-qui" href="javascript:void(0)" onclick="goToDay('qui')">Qui</a>
@@ -411,7 +411,7 @@
                 <li>
           <div class="ex-row">
     <input type="checkbox" class="ex-check">
-    <span class="ex-name">Alongamento do iliopsoas<a class="yt-icon" href="https://www.youtube.com/watch?v=DeVYJ5nkhJw" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-iliopsoas', ['DeVYJ5nkhJw','Tljyp4UI9HA','fdEHZSwgwOM','H7WtRrDzogs'], this)">+</button></span>
+    <span class="ex-name">Alongamento do iliopsoas<a class="yt-icon" href="https://www.youtube.com/watch?v=DeVYJ5nkhJw" target="_blank" rel="noopener" aria-label="Ver no YouTube"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="M10 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg></a><button class="toggle-icon" aria-label="Ver vídeos" onclick="toggleVideos('vg-ter-iliopsoas', ['DeVYJ5nkhJw','pgPWg2Mf1B8','fdEHZSwgwOM','H7WtRrDzogs'], this)">+</button></span>
     <span class="ex-dose mono">3×30–45s/lado</span>
   </div>
           <div class="ex-cue">Ajoelhado com 1 perna à frente (afundo), empurre o quadril adiante e para baixo, mantendo o tronco ereto — sente o alongamento na virilha/frente do quadril da perna de trás.</div>
@@ -908,7 +908,7 @@ function resetTimer(){
   btn.textContent = '▶ Play';
   btn.classList.add('play');
 }
-let selectedDay = null;
+let selectedDay = 'seg';
 function toggleVideos(id, ids, btn){
   const box = document.getElementById(id);
   if(box.dataset.loaded !== '1'){
